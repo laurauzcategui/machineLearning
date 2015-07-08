@@ -13,3 +13,8 @@ sunny, mild, normal, true, P
 overcast, mild, high, true, P
 overcast, hot, normal, false, P
 rain, mild, high, true, N
+overcast, cool, high, true, N
+overcast, cool, normal, true, P
+storm, cool, high, true, N
+storm, freezing, low, false, P
+thunder, freezing, dry, true, N

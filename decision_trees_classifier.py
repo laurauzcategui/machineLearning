@@ -11,9 +11,9 @@ import pydot
 
 
 # Convert strings to integer values with a lookup dictionary
-outlook_values = {'sunny': 1, 'overcast': 2, 'rain': 3}
-temperature_values = {'hot': 1, 'mild': 2, 'cool': 3}
-humidity_values = {'high': 1, 'normal': 2}
+outlook_values = {'sunny': 1, 'overcast': 2, 'rain': 3, 'storm': 4, 'thunder': 5}
+temperature_values = {'hot': 1, 'mild': 2, 'cool': 3, 'freezing': 4}
+humidity_values = {'high': 1, 'normal': 2, 'low': 3, 'dry': 4}
 windy_values = {False: 1, True: 2}
 
 
@@ -31,19 +31,19 @@ def create_decision_tree():
     print "Input Data from CSV:\n", df
 
     # Create the feature set
-    X = map(list, df[['outlook', 'temperature', 'humidity', 'windy']].values)    
+    X = map(list, df[['outlook', 'temperature', 'humidity', 'windy']].values)
 
     # Create the output values
     Y = df['class'].tolist()
-    
+
     # Default criteria for quality of split is 'gini'
     # clf = tree.DecisionTreeClassifier()
 
-    # Setting the criteria for quality of split to 'entropy'    
+    # Setting the criteria for quality of split to 'entropy'
     clf = tree.DecisionTreeClassifier(criterion='entropy')
-    
+
     clf = clf.fit(X, Y)
-    
+
     print "Decision Tree created!"
 
     make_predictions(clf)
@@ -55,19 +55,19 @@ def make_predictions(clf):
     print "\nRunning predictions..."
     # Verification: Check if a prediction matches with an existing value
     # Expected Output: 'N'
-    print "Input Values: ['sunny', 'hot', 'high', False]"
+    print "Input Values: ['storm', 'cool', 'high', True]"
     print "Prediction: ", clf.predict([
         [
-            outlook_values['sunny'],
-            temperature_values['hot'],
+            outlook_values['storm'],
+            temperature_values['cool'],
             humidity_values['high'],
-            windy_values[False]
+            windy_values[True]
         ]
     ])
-    
+
     # Predict a value that is not available in the input data
     # Expected Output: 'P'
-    print "Input Values: ['overcast', 'mild', 'normal', True]"    
+    print "Input Values: ['overcast', 'mild', 'normal', True]"
     print "Prediction: ", clf.predict([
         [
             outlook_values['overcast'],
